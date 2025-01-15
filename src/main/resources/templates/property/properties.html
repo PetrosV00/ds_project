@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Properties</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${ not#lists.isEmpty(properties)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Address</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="property : ${properties}">
+        <td th:text="${property.title}"></td>
+        <td th:text="${property.description}"></td>
+        <td th:text="${property.address}"></td>
+        <td th:text="${property.price}"></td>
+        <td> <a th:href="@{'/properties/' + ${property.id}}">Details</a></td>
+        <td> <a th:href="@{'/booking/' + ${property.id} + '/new'}" class="btn btn-primary" role="button">Book now!</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${ #lists.isEmpty(properties)}">
+    No Properties found!
+  </div>
+  <a sec:authorize="hasRole('ROLE_ADMIN')" href="/properties/new" class="btn btn-primary" role="button">Create new Property</a>
+</div>
+</body>
+</html>

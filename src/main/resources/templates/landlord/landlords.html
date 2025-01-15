@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Landlords</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${ not#lists.isEmpty(landlords)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="landlord : ${landlords}">
+        <td th:text="${landlord.firstName}"></td>
+        <td th:text="${landlord.lastName}"></td>
+        <td th:text="${landlord.email}"></td>
+        <td th:text="${landlord.phoneNumber}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${ #lists.isEmpty(landlords)}">
+    No landlords found!
+  </div>
+  <a href="/landlord/new" class="btn btn-primary" role="button">Create new Landlord</a>
+</div>
+</body>
+</html>
