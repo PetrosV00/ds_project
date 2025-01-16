@@ -7,6 +7,7 @@ import gr.hua.dit.ds.DS_PROJECT.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,5 +43,11 @@ public class PropertyService {
         property.setUser(user);
         propertyRepository.save(property);
     }
+
+    public List<Property> getLandlordProperties(int user_id) {
+        User user = userRepository.findById((long) user_id).get();
+        return user.getProperties();
+    }
+
 
 }

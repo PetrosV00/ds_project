@@ -70,4 +70,13 @@ public class BookingController {
         return "booking/bookingCancelation";
     }
 
+    @GetMapping("/pending_booking_requests")
+    public String showPendingBookings(Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("bookings", bookingService.getMyPropertyBookings(user.getId()));
+        return "booking/bookings";
+    }
+
+
 }
