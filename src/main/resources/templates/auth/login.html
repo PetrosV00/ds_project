@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - Σύνδεση</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-container h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+        .login-container p {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .footer-links {
+            margin-top: 10px;
+        }
+        .footer-links a {
+            font-size: 12px;
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h1>SKYBNB</h1>
+    <p>Διαχείριση καταλυμάτων</p>
+    <div th:if="${param.error}">
+        <div class="error-message">Λάθος στοιχεία</div>
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="username">Όνομα Χρήστη</label>
+            <input type="text" id="username" name="username" placeholder="Εισάγετε το όνομα χρήστη σας" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Κωδικός</label>
+            <input type="password" id="password" name="password" placeholder="Εισάγετε τον κωδικό σας" required>
+        </div>
+        <button type="submit" class="btn">Σύνδεση</button>
+    </form>
+    <div class="footer-links">
+        <a th:href="@{/register}">Εγγραφή</a>
+        <a th:href="@{https://i1.sndcdn.com/artworks-000150882769-zaz5b9-t1080x1080.jpg}">Ξεχάσατε τον κωδικό σας;</a>
+    </div>
+</div>
+</body>
+</html>

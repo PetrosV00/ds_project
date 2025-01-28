@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div>
+        <h1>Your booking has been deleted</h1>
+    </div>
+    <div th:if="${ not#lists.isEmpty(bookings)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Property</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="booking : ${bookings}">
+                <td th:text="${booking.Id}"></td>
+                <td th:text="${booking.property.title}"></td>
+                <td th:text="${booking.startDate}"></td>
+                <td th:text="${booking.endDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(bookings)}">
+        No bookings found!
+    </div>
+</div>
+</body>
+</html>

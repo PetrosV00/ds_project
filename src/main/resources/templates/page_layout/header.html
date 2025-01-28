@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<header class="masthead mb-auto" th:fragment="header">
+    <div class="inner">
+        <h3 class="masthead-brand">Cover</h3>
+        <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link" href="/properties">View Houses</a>
+            <a sec:authorize="hasRole('ROLE_TENANT')" class="nav-link" href="/booking">Make a Booking</a>
+            <a sec:authorize="hasRole('ROLE_TENANT')" class="nav-link" href="/booking/view">My Bookings</a>
+            <a sec:authorize="hasRole('ROLE_LANDLORD')" class="nav-link" href="/properties/my_properties">My Properties</a>
+            <a sec:authorize="hasRole('ROLE_LANDLORD')" class="nav-link" href="/properties/new">Create a Property Listing</a>
+            <!--<a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/landlord">Landlords</a>-->
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users">Users</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/pending_users">Pending User Requests</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link">
+                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/register">Register</a>
+            </a>
+            <a sec:authorize="isAuthenticated()"  class="nav-link">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit"  class="btn btn-primary" value="Sign Out"/>
+                </form>
+            </a>
+            <a class="nav-link" href="#">Contact</a>
+        </nav>
+    </div>
+</header>
+
+</body>
+</html>

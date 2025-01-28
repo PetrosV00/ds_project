@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - Users</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .no-users {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+        }
+
+        /* Minimalist Action Buttons */
+        .action-buttons a {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 8px;
+            font-size: 14px;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5;
+            width: 32px;
+            height: 32px;
+            text-decoration: none;
+        }
+        .action-buttons a.btn-edit {
+            background-color: #007bff;
+        }
+        .action-buttons a.btn-edit:hover {
+            background-color: #0056b3;
+        }
+        .action-buttons a.btn-delete {
+            background-color: #dc3545;
+        }
+        .action-buttons a.btn-delete:hover {
+            background-color: #c82333;
+        }
+        .action-buttons a.btn-add {
+            background-color: #28a745;
+        }
+        .action-buttons a.btn-add:hover {
+            background-color: #218838;
+        }
+        .icon {
+            font-size: 18px;
+        }
+
+        /* Create New User Button */
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/}" class="">Home</a></li>
+        <li><a th:href="@{/properties}">View Accommodations</a></li>
+        <li><a th:href="@{/users}" class="active">Users</a></li>
+        <li><a th:href="@{/pending_users}">Pending Users</a></li>
+        <li><a th:href="@{/contact}">Contact</a></li>
+        <li><a th:href="@{/login?logout}">Sign Out</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>Users Management</h2>
+
+    <!-- Display table if users exist -->
+    <div th:if="${not #lists.isEmpty(users)}">
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Account Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.status}"></td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/user/{id}(id=${user.id})}">Edit</a>
+                    <span th:each="role : ${user.roles}">
+                            <a class="btn btn-danger" th:href="@{/user/role/delete/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:utext="'Delete ' + ${role.name}"></a>
+                        </span>
+                    <span th:each="role : ${roles}">
+                            <a class="btn btn-success" th:href="@{/user/role/add/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:if="${! user.roles.contains(role)}" th:utext="'Add ' + ${role.name}"></a>
+                        </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Message if no users are found -->
+    <div th:if="${#lists.isEmpty(users)}" class="no-users">
+        <p>No users found!</p>
+    </div>
+
+    <!-- Create new user button -->
+    <div style="text-align: center;">
+        <a href="/register" class="btn btn-primary">Create New User</a>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
+</footer>
+</body>
+</html>

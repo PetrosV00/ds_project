@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - Create a Listing</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/}" class="">Home</a></li>
+        <li><a th:href="@{/properties}" class="">View Accommodations</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"><a th:href="@{/booking/view}" class="">My Bookings</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"><a th:href="@{/properties/my_properties}" class="">My Properties</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"><a th:href="@{/properties/new}" class="active">Create a Listing</a></li>
+        <li><a th:href="@{/contact}" class="">Contact</a></li>
+        <li><a th:href="@{/login?logout}" class="">Sign Out</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>Create a New Listing</h2>
+    <form th:action="@{/properties/new}" method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Enter the title of your property" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Describe your property" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter the address" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price per Night (€)</label>
+            <input type="number" id="price" name="price" placeholder="Enter the price per night" step="0.01" required>
+        </div>
+        <button type="submit" class="btn">Create Listing</button>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
+</footer>
+</body>
+</html>
