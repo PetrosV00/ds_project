@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.DS_PROJECT.services;
 
 import gr.hua.dit.ds.DS_PROJECT.entities.Property;
+import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.repositories.PropertyRepository;
 import gr.hua.dit.ds.DS_PROJECT.repositories.UserRepository;
@@ -41,6 +42,16 @@ public class PropertyService {
         User user = userRepository.findById((long) user_id).get();
         property.setUser(user);
         propertyRepository.save(property);
+    }
+
+    @Transactional
+    public List<Property> getApprovedProperties() {
+        return propertyRepository.findAllByStatus(Status.APPROVED);
+    }
+
+    @Transactional
+    public List<Property> getPendingProperties() {
+        return propertyRepository.findAllByStatus(Status.PENDING);
     }
 
 }

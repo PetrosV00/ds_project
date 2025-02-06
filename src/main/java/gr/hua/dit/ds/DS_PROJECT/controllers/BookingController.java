@@ -70,4 +70,30 @@ public class BookingController {
         return "booking/bookingCancelation";
     }
 
+    @GetMapping("/pending_booking_requests")
+    public String showPendingBookings(Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("bookings", bookingService.getMyPropertyBookings(user.getId()));
+        return "booking/bookings";
+    }
+
+    @GetMapping("/pending_booking_requests/{id}")
+    public String showPendingBookingStatus(@PathVariable int id, Model model) {
+        Booking booking = bookingService.getBookingById(id);
+        model.addAttribute("booking", booking);
+        return "booking/bookingStatus";
+    }
+
+    @PostMapping("/pending_booking_requests/{id}")
+    public String approveBooking(@ModelAttribute("booking") Booking booking, @PathVariable int id, Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(email);
+        Booking updatedBooking = bookingService.getBookingById(id);
+        updatedBooking.setStatus(booking.getStatus());
+        bookingService.save(updatedBooking);
+        model.addAttribute("bookings", bookingService.getMyPropertyBookings(user.getId()));
+        return "booking/bookings";
+    }
+
 }

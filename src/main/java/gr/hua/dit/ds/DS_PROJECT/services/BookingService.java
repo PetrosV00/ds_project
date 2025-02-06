@@ -9,6 +9,7 @@ import gr.hua.dit.ds.DS_PROJECT.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,5 +53,19 @@ public class BookingService {
     @Transactional
     public void removeBooking(int id) {
         bookingRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Booking> getMyPropertyBookings(int user_id) {
+        User user = userRepository.findById((long) user_id).get();
+        List<Property> properties = user.getProperties();
+        List<Booking> bookings = new ArrayList<>();
+        for (Property property : properties) {
+            List<Booking> temp = bookingRepository.getAllBookingsByProperty(property);
+            for (Booking booking : temp) {
+                bookings.add(booking);
+            }
+        }
+        return bookings;
     }
 }

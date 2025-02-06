@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.DS_PROJECT.controllers;
 
+import gr.hua.dit.ds.DS_PROJECT.entities.Role;
 import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.repositories.RoleRepository;
@@ -80,6 +81,29 @@ public class UserController {
         System.out.println(updatedUser);
         userService.updateUser(updatedUser);
         model.addAttribute("users", userService.getUsersByStatus(Status.PENDING));
+        return "auth/users";
+    }
+
+    @GetMapping ("/user/role/delete/{user_id}/{role_id}")
+    public String deteteRole(@PathVariable Long user_id, @PathVariable int role_id, Model model) {
+        User user = (User) userService.getUser(user_id);
+        Role role = roleRepository.findById(role_id).get();
+        user.getRoles().remove(role);
+        userService.updateUser(user);
+        model.addAttribute("users", userService.getUsersByStatus(Status.APPROVED));
+        model.addAttribute("roles", roleRepository.findAll());
+        return "auth/users";
+    }
+
+    @GetMapping("/user/role/add/{user_id}/{role_id}")
+    public String addRole(@PathVariable Long user_id, @PathVariable Integer role_id, Model model){
+        User user = (User) userService.getUser(user_id);
+        Role role = roleRepository.findById(role_id).get();
+        user.getRoles().add(role);
+        System.out.println("Roles: "+user.getRoles());
+        userService.updateUser(user);
+        model.addAttribute("users", userService.getUsers());
+        model.addAttribute("roles", roleRepository.findAll());
         return "auth/users";
     }
 

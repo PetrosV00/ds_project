@@ -108,7 +108,7 @@
 
 <main>
     <h1>Make a Booking</h1>
-    <form th:action="@{/booking/{id}/new(id=${property.id})}" method="post" th:object="${booking}">
+    <form th:action="@{'/booking/'+${id}+'/new'}" method="post" th:object="${booking}">
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
 

@@ -9,10 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/properties")
@@ -62,6 +59,35 @@ public class PropertyController {
         propertyService.assignLandlordToProperty(user.getId(), property);
         model.addAttribute("properties", user.getProperties());
         return "property/properties"; // Redirect back to "My Properties"
+    }
+
+    @GetMapping("/pending_properties")
+    public String showPendingProperties(Model model) {
+        model.addAttribute("properties", propertyService.getPendingProperties());
+        return "property/pending_properties";
+    }
+
+    @GetMapping("/{id}")
+    public String PropertyDetails(Model model, @PathVariable int id) {
+        Property property = propertyService.getProperty(id);
+        model.addAttribute("properties", property);
+        return "property/properties";
+    }
+
+    @GetMapping("/pending_property/{id}")
+    public String ShowPendingProperty(Model model, @PathVariable int id) {
+        Property property = propertyService.getProperty(id);
+        model.addAttribute("property", property);
+        return "property/pending_property";
+    }
+
+    @PostMapping("/pending_property/{id}")
+    public String updatePendingProperty(@ModelAttribute("property") Property property, @PathVariable int id, Model model) {
+        Property updatedProperty = propertyService.getProperty(id);
+        updatedProperty.setStatus(property.getStatus());
+        propertyService.save(updatedProperty);
+        model.addAttribute("properties", propertyService.getApprovedProperties());
+        return "property/properties";
     }
 }
 
