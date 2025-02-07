@@ -1,39 +1,83 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SKYBNB Header</title>
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <style>
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
-<header class="masthead mb-auto" th:fragment="header">
-    <div class="inner">
-        <h3 class="masthead-brand">Cover</h3>
-        <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="/">Home</a>
-            <a class="nav-link" href="/properties">View Houses</a>
-            <a sec:authorize="hasRole('ROLE_TENANT')" class="nav-link" href="/booking">Make a Booking</a>
-            <a sec:authorize="hasRole('ROLE_TENANT')" class="nav-link" href="/booking/view">My Bookings</a>
-            <a sec:authorize="hasRole('ROLE_LANDLORD')" class="nav-link" href="/properties/my_properties">My Properties</a>
-            <a sec:authorize="hasRole('ROLE_LANDLORD')" class="nav-link" href="/properties/new">Create a Property Listing</a>
-            <!--<a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/landlord">Landlords</a>-->
-            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users">Users</a>
-            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/pending_users">Pending User Requests</a>
-            <a sec:authorize="!isAuthenticated()" class="nav-link">
-                <a class="nav-link" href="/login">Login</a>
-                <a class="nav-link" href="/register">Register</a>
-            </a>
-            <a sec:authorize="isAuthenticated()"  class="nav-link">
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit"  class="btn btn-primary" value="Sign Out"/>
-                </form>
-            </a>
-            <a class="nav-link" href="#">Contact</a>
-        </nav>
-    </div>
+<header th:fragment="header">
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{/}" class="active">Home</a></li>
+            <li><a th:href="@{/properties}">View Accommodations</a></li>
+
+            <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
+                <a th:href="@{/booking/view}">My Bookings</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
+                <a th:href="@{/booking/make}">Make a Booking</a>
+            </li>
+
+            <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+                <a th:href="@{/properties/my_properties}">My Properties</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+                <a th:href="@{/properties/new}">Create a Listing</a>
+            </li>
+
+            <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <a th:href="@{/users}">Users</a>
+            </li>
+            <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <a th:href="@{/pending_users}">Pending Users</a>
+            </li>
+
+            <li><a th:href="@{/contact}">Contact</a></li>
+
+            <li><a th:href="@{/login?logout}">Sign Out</a></li>
+        </ul>
+    </nav>
 </header>
 
 </body>

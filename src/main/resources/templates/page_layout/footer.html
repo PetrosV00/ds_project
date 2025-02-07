@@ -2,14 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>SKYBNB Footer</title>
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+    <style>
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        footer a:hover {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 
-<footer class="mastfoot mt-auto" th:fragment="footer">
-  <div class="inner">
-    <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-  </div>
+<footer th:fragment="footer">
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
