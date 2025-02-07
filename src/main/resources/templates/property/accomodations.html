@@ -155,7 +155,7 @@
             <p th:text="${property.description}">Property Description</p>
             <p th:text="'Address: ' + ${property.address}">Property Address</p>
             <p class="price" th:text="'€' + ${property.price} + ' / night'">€100 / night</p>
-            <a th:href="@{/booking/make/{id}(id=${property.id})}" class="btn">Book Now</a>
+            <a th:href="@{'/booking/'+${property.id}+'/new'}" class="btn">Book Now</a>
         </div>
     </div>
 </main>
