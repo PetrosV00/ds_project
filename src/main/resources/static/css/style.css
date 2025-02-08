@@ -3,11 +3,15 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
 }
 
 nav ul {
     list-style: none;
+    margin: 0;
     padding: 0;
+    display: flex;
+    gap: 20px;
 }
 
 nav ul li {
@@ -17,28 +21,234 @@ nav ul li {
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 5px;
     background: #f4f4f4;
     position: fixed;
     bottom: 0;
     width: 100%;
 }
 
- .btn {
-     display: inline-block;
-     background-color: #007bff;
-     color: #ffffff;
-     padding: 8px 12px;
-     font-size: 14px;
-     border: none;
-     border-radius: 4px;
-     text-decoration: none;
-     cursor: pointer;
-     margin-top: 10px;
-     transition: background-color 0.1s ease, transform 0.1s ease;
- }
+.btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
 
 .btn:hover {
     background-color: #0056b3;
     transform: scale(1.01);
+}
+
+.btn-danger {
+    background-color: #365fa5;
+}
+
+.btn-danger:hover {
+    background-color: #2a4f8f;
+}
+
+.dropdown {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+header {
+    background-color: #007bff;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+}
+
+nav {
+    background-color: #0056b3;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav ul li a.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    margin-top: 20px;
+}
+
+.search-bar input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.table {
+    width: 80%;
+    max-width: 900px;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+.accommodation-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.accommodation-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accommodation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.accommodation-card h3 {
+    color: #007bff;
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.accommodation-card p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.accommodation-card .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-bar input, .filter-bar select, .filter-bar button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-bar button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 8px 15px;
+}
+
+.filter-bar button:hover {
+    background-color: #0056b3;
+}
+
+h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.properties-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: left;
+}
+.properties-table th, .properties-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+.properties-table th {
+    background-color: #007bff;
+    color: #fff;
+}
+.properties-table tr:nth-child(even) {
+    background-color: #f4f4f9;
 }

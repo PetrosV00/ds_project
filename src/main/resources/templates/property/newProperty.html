@@ -111,13 +111,35 @@
 
 <nav>
     <ul>
-        <li><a th:href="@{/}" class="">Home</a></li>
-        <li><a th:href="@{/properties}" class="">View Accommodations</a></li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}"><a th:href="@{/booking/view}" class="">My Bookings</a></li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"><a th:href="@{/properties/my_properties}" class="">My Properties</a></li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}"><a th:href="@{/properties/new}" class="active">Create a Listing</a></li>
-        <li><a th:href="@{/contact}" class="">Contact</a></li>
-        <li><a th:href="@{/login?logout}" class="">Sign Out</a></li>
+        <!-- Common options for all users -->
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/properties}">View Accommodations</a></li>
+
+        <!-- Tenant-specific options -->
+        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
+            <a th:href="@{/booking/view}">My Bookings</a>
+        </li>
+        <!-- Landlord-specific options -->
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/properties/my_properties}">My Properties</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/properties/new}" class="active">Create a Listing</a>
+        </li>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a>
+
+            <!-- Admin-specific options -->
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/users}">Users</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/pending_users}">Pending Users</a>
+        </li>
+
+        <!-- Sign Out option for all users -->
+        <li><a th:href="@{/login?logout}">Sign Out</a></li>
     </ul>
 </nav>
 

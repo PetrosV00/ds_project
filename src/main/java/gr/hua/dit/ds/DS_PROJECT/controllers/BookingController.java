@@ -7,10 +7,7 @@ import gr.hua.dit.ds.DS_PROJECT.services.BookingService;
 import gr.hua.dit.ds.DS_PROJECT.services.PropertyService;
 import gr.hua.dit.ds.DS_PROJECT.services.UserService;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +30,7 @@ public class BookingController {
     @GetMapping("")
     public String showProperties(Model model) {
         model.addAttribute("properties", propertyService.getProperties());
-        return "property/properties";
+        return "myProperties";
     }
 
     @GetMapping("/view")
