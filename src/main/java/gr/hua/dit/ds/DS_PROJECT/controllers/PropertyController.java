@@ -39,28 +39,124 @@ public class PropertyController {
         return "property/accomodations"; // Separate HTML template
     }
     @GetMapping("/filtered")
-    public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam String startDate, @RequestParam String endDate, Model model) throws ParseException {
+    public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, Model model) throws ParseException {
         List<Property> filteredProperties = new ArrayList<>();
         List<Property> AvailableProperties = propertyService.getProperties();
+
+
         for (Property property : AvailableProperties) {
-            if(property.getCity().equals(location) && property.getPrice() <= Integer.parseInt(price)
-               && startDate != null && endDate != null) {
-                if (property.getBookings().isEmpty()) {
+            if (property.getCity().equals(location) && price.isEmpty() ) {
+                if (startDate.isEmpty() || endDate.isEmpty()) {
                     filteredProperties.add(property);
                 } else {
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date sdate = formatter.parse(startDate);
-                    Date edate = formatter.parse(endDate);
-                    for (Booking booking : property.getBookings()) {
-                        Date b_sdate = formatter.parse(booking.getStartDate());
-                        Date b_edate = formatter.parse(booking.getEndDate());
-                        if (sdate.after(b_edate) || edate.before(b_sdate)) {
+                    Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                    Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+
+                    boolean flag = true;
+                    for(Booking booking : property.getBookings()) {
+                        if(property.getBookings().isEmpty()) {
                             filteredProperties.add(property);
+                        } else {
+
+                            Date b_sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getStartDate());
+                            Date b_edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getEndDate());
+
+                            if (!(sdate.after(b_edate) || edate.before(b_sdate))) {
+                                flag = false;
+                                break;
+                            }
                         }
+                    }
+
+                    if (flag == true) {
+                        filteredProperties.add(property);
+                    }
+                }
+            } else if ( !price.isEmpty() && property.getPrice() <= Integer.parseInt(price) && location.isEmpty()) {
+                if (startDate.isEmpty() || endDate.isEmpty()) {
+                    filteredProperties.add(property);
+                } else {
+                    Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                    Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+
+                    boolean flag = true;
+                    for(Booking booking : property.getBookings()) {
+                        if(property.getBookings().isEmpty()) {
+                            filteredProperties.add(property);
+                        } else {
+
+                            Date b_sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getStartDate());
+                            Date b_edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getEndDate());
+
+                            if (!(sdate.after(b_edate) || edate.before(b_sdate))) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (flag == true) {
+                        filteredProperties.add(property);
+                    }
+                }
+            } else if (!price.isEmpty() && property.getPrice() <= Integer.parseInt(price) && property.getCity().equals(location)) {
+                if (startDate.isEmpty() || endDate.isEmpty()) {
+                    filteredProperties.add(property);
+                } else {
+                    Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                    Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+
+                    boolean flag = true;
+                    for(Booking booking : property.getBookings()) {
+                        if(property.getBookings().isEmpty()) {
+                            filteredProperties.add(property);
+                        } else {
+
+                            Date b_sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getStartDate());
+                            Date b_edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getEndDate());
+
+                            if (!(sdate.after(b_edate) || edate.before(b_sdate))) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (flag == true) {
+                        filteredProperties.add(property);
+                    }
+                }
+            } else if (price.isEmpty() && location.isEmpty()) {
+                if (startDate.isEmpty() || endDate.isEmpty()) {
+                    filteredProperties.add(property);
+                } else {
+                    Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+                    Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
+
+                    boolean flag = true;
+                    for(Booking booking : property.getBookings()) {
+                        if(property.getBookings().isEmpty()) {
+                            filteredProperties.add(property);
+                        } else {
+
+                            Date b_sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getStartDate());
+                            Date b_edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getEndDate());
+
+                            if (!(sdate.after(b_edate) || edate.before(b_sdate))) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (flag == true) {
+                        filteredProperties.add(property);
                     }
                 }
             }
         }
+
+
         model.addAttribute("properties", filteredProperties);
         return "property/accomodations";
     }

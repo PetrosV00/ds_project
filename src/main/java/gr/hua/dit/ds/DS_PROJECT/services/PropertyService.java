@@ -59,4 +59,6 @@ public class PropertyService {
         return propertyRepository.findAllByCity(city);
     }
 
+
+
 }
