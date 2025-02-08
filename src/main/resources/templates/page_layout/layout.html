@@ -1,31 +1,107 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SKYBNB</title>
-    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - Home</title>
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: #f4f4f9;
         }
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
         main {
             padding: 20px;
             text-align: center;
         }
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+<header th:fragment="header">
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+</header>
 
-<header th:replace="page_layout/header :: header"></header>
+<nav th:fragment="nav">
+    <ul>
+        <li><a th:href="@{/}" class="active">Home</a></li>
+        <li><a th:href="@{/properties}">View Accommodations</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
+            <a th:href="@{/booking/view}">My Bookings</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
+            <a th:href="@{/contact}">Contact</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/properties/my_properties}">My Properties</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/properties/new}">Create a Listing</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/contact}">Contact</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/users}">Users</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/pending_users}">Pending Users</a>
+        </li>
+        <li><a th:href="@{/login?logout}">Sign Out</a></li>
+    </ul>
+</nav>
 
-<main layout:fragment="main-content">
-    <h1>Welcome to SKYBNB</h1>
+<!-- ✅ This is the placeholder where `index.html` content will be inserted -->
+<main layout:fragment="content">
+    <!-- Dynamic content from `index.html` and other pages will appear here -->
 </main>
 
-<footer th:replace="page_layout/footer :: footer"></footer>
-
+<footer th:fragment="footer">
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
+</footer>
 </body>
 </html>
