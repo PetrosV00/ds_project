@@ -6,6 +6,7 @@ import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.services.BookingService;
 import gr.hua.dit.ds.DS_PROJECT.services.PropertyService;
 import gr.hua.dit.ds.DS_PROJECT.services.UserService;
+import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class PropertyController {
     // All available accommodations for all users
     @GetMapping("")
     public String showProperties(Model model) {
-        model.addAttribute("properties", propertyService.getProperties());
+        model.addAttribute("properties", propertyService.getApprovedProperties());
         return "property/accomodations"; // Separate HTML template
     }
     @GetMapping("/filtered")
@@ -80,7 +81,7 @@ public class PropertyController {
     @GetMapping("/new")
     public String addProperty(Model model) {
         model.addAttribute("property", new Property());
-        return "property/newProperty";
+        return "/property/newProperty";
     }
 
     // Save a new property
@@ -89,6 +90,7 @@ public class PropertyController {
     public String saveProperty(@ModelAttribute("property") Property property, Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(email);
+        property.setStatus(Status.PENDING);
         propertyService.assignLandlordToProperty(user.getId(), property);
         model.addAttribute("properties", user.getProperties());
         return "property/myProperties"; // Redirect back to "My Properties"
@@ -120,7 +122,9 @@ public class PropertyController {
         updatedProperty.setStatus(property.getStatus());
         propertyService.save(updatedProperty);
         model.addAttribute("properties", propertyService.getApprovedProperties());
-        return "property/myProperties";
+        return "property/pending_properties";
     }
+
+
 }
 
