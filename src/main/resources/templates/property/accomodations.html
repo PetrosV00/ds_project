@@ -145,9 +145,6 @@
         <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
             <a th:href="@{/booking/view}">My Bookings</a>
         </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/booking/make}">Make a Booking</a>
-        </li>
 
         <!-- Landlord-specific options -->
         <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">

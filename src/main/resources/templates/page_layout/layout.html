@@ -1,106 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="">
-<head th:fragment="head">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYBNB - Home</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #007bff;
-            padding: 10px 0;
-            color: #fff;
-            text-align: center;
-        }
-        nav {
-            background-color: #0056b3;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        nav ul li a.active {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-        footer {
-            background-color: #0056b3;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <title layout:title-pattern="$CONTENT_TITLE - SKYBNB">SKYBNB</title>
+    <!-- Include CSS files -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/cover.css}">
 </head>
 <body>
-<header th:fragment="header">
+<header>
     <h1>SKYBNB</h1>
     <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
 </header>
 
-<nav th:fragment="nav">
+<nav>
     <ul>
         <li><a th:href="@{/}" class="active">Home</a></li>
         <li><a th:href="@{/properties}">View Accommodations</a></li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/booking/view}">My Bookings</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/contact}">Contact</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/my_properties}">My Properties</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/new}">Create a Listing</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/contact}">Contact</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/users}">Users</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/pending_users}">Pending Users</a>
-        </li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_TENANT\')')}"><a th:href="@{/booking/view}">My Bookings</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_TENANT\')')}"><a th:href="@{/contact}">Contact</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_LANDLORD\')')}"><a th:href="@{/properties/my_properties}">My Properties</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_LANDLORD\')')}"><a th:href="@{/properties/new}">Create a Listing</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_LANDLORD\')')}"><a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_ADMIN\')')}"><a th:href="@{/users}">Users</a></li>
+        <li th:if="${#authorization.expression('hasRole(\'ROLE_ADMIN\')')}"><a th:href="@{/pending_users}">Pending Users</a></li>
         <li><a th:href="@{/login?logout}">Sign Out</a></li>
     </ul>
 </nav>
 
-<!-- ✅ This is the placeholder where `index.html` content will be inserted -->
-<main layout:fragment="content">
-    <!-- Dynamic content from `index.html` and other pages will appear here -->
+<main layout:fragment="main-content">
+    <!-- Content goes here -->
 </main>
 
-<footer th:fragment="footer">
+<footer>
     <p>&copy; 2024 SKYBNB. All rights reserved.</p>
 </footer>
 </body>

@@ -105,8 +105,6 @@
             <a th:href="@{/booking/view}">My Bookings</a>
         </li>
         </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/contact}">Contact</a>
         </li>
 
         <!-- Landlord-specific options -->
@@ -116,9 +114,9 @@
         <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
             <a th:href="@{/properties/new}">Create a Listing</a>
         </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/contact}">Contact</a>
         </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
+            <a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a>
 
         <!-- Admin-specific options -->
         <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
