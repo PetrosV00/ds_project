@@ -72,7 +72,7 @@ public class PropertyController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(email);
         model.addAttribute("properties", user.getProperties());
-        return "property/properties"; // Separate HTML template
+        return "property/myProperties"; // Separate HTML template
     }
 
     // Add a new property form
@@ -80,7 +80,7 @@ public class PropertyController {
     @GetMapping("/new")
     public String addProperty(Model model) {
         model.addAttribute("property", new Property());
-        return "property/property";
+        return "property/newProperty";
     }
 
     // Save a new property
@@ -91,7 +91,7 @@ public class PropertyController {
         User user = userService.getUserByEmail(email);
         propertyService.assignLandlordToProperty(user.getId(), property);
         model.addAttribute("properties", user.getProperties());
-        return "property/properties"; // Redirect back to "My Properties"
+        return "property/myProperties"; // Redirect back to "My Properties"
     }
 
     @GetMapping("/pending_properties")
@@ -104,7 +104,7 @@ public class PropertyController {
     public String PropertyDetails(Model model, @PathVariable int id) {
         Property property = propertyService.getProperty(id);
         model.addAttribute("properties", property);
-        return "property/properties";
+        return "property/myProperties";
     }
 
     @GetMapping("/pending_property/{id}")
@@ -120,7 +120,7 @@ public class PropertyController {
         updatedProperty.setStatus(property.getStatus());
         propertyService.save(updatedProperty);
         model.addAttribute("properties", propertyService.getApprovedProperties());
-        return "property/properties";
+        return "property/myProperties";
     }
 }
 
