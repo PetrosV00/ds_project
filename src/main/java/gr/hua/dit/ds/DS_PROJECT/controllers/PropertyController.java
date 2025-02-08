@@ -35,7 +35,7 @@ public class PropertyController {
     // All available accommodations for all users
     @GetMapping("")
     public String showProperties(Model model) {
-        model.addAttribute("properties", propertyService.getProperties());
+        model.addAttribute("properties", propertyService.getApprovedProperties());
         return "property/accomodations"; // Separate HTML template
     }
     @GetMapping("/filtered")
