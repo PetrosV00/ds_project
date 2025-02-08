@@ -81,7 +81,7 @@ public class UserController {
         System.out.println(updatedUser);
         userService.updateUser(updatedUser);
         model.addAttribute("users", userService.getUsersByStatus(Status.PENDING));
-        return "auth/users";
+        return "auth/pending_users";
     }
 
     @GetMapping ("/user/role/delete/{user_id}/{role_id}")
@@ -92,7 +92,7 @@ public class UserController {
         userService.updateUser(user);
         model.addAttribute("users", userService.getUsersByStatus(Status.APPROVED));
         model.addAttribute("roles", roleRepository.findAll());
-        return "auth/users";
+        return "redirect:/users";
     }
 
     @GetMapping("/user/role/add/{user_id}/{role_id}")
@@ -104,7 +104,7 @@ public class UserController {
         userService.updateUser(user);
         model.addAttribute("users", userService.getUsers());
         model.addAttribute("roles", roleRepository.findAll());
-        return "auth/users";
+        return "redirect:/users";
     }
 
 

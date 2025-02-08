@@ -54,4 +54,9 @@ public class PropertyService {
         return propertyRepository.findAllByStatus(Status.PENDING);
     }
 
+    @Transactional
+    public List<Property> getPropertiesByCity(String city) {
+        return propertyRepository.findAllByCity(city);
+    }
+
 }

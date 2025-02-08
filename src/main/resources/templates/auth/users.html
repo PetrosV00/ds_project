@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -167,12 +168,13 @@
                 <td>
                     <a class="btn btn-info" th:href="@{/user/{id}(id=${user.id})}">Edit</a>
                     <span th:each="role : ${user.roles}">
-                            <a class="btn btn-danger" th:href="@{/user/role/delete/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:utext="'Delete ' + ${role.name}"></a>
+                            <a sec:authorize="hasAuthority('APPROVED')" class="btn btn-danger" th:href="@{/user/role/delete/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:utext="'Delete ' + ${role.name}"></a>
                         </span>
                     <span th:each="role : ${roles}">
                             <a class="btn btn-success" th:href="@{/user/role/add/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:if="${! user.roles.contains(role)}" th:utext="'Add ' + ${role.name}"></a>
                         </span>
                 </td>
+
             </tr>
             </tbody>
         </table>

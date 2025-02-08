@@ -2,6 +2,9 @@ package gr.hua.dit.ds.DS_PROJECT.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
+
 @Entity
 public class Booking {
 

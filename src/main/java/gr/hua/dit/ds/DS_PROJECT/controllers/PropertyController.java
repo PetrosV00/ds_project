@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.DS_PROJECT.controllers;
 
+import gr.hua.dit.ds.DS_PROJECT.entities.Booking;
 import gr.hua.dit.ds.DS_PROJECT.entities.Property;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.services.BookingService;
@@ -10,6 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/properties")
@@ -30,6 +37,32 @@ public class PropertyController {
     public String showProperties(Model model) {
         model.addAttribute("properties", propertyService.getProperties());
         return "property/accomodations"; // Separate HTML template
+    }
+    @GetMapping("/filtered")
+    public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam String startDate, @RequestParam String endDate, Model model) throws ParseException {
+        List<Property> filteredProperties = new ArrayList<>();
+        List<Property> AvailableProperties = propertyService.getProperties();
+        for (Property property : AvailableProperties) {
+            if(property.getCity().equals(location) && property.getPrice() <= Integer.parseInt(price)
+               && startDate != null && endDate != null) {
+                if (property.getBookings().isEmpty()) {
+                    filteredProperties.add(property);
+                } else {
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date sdate = formatter.parse(startDate);
+                    Date edate = formatter.parse(endDate);
+                    for (Booking booking : property.getBookings()) {
+                        Date b_sdate = formatter.parse(booking.getStartDate());
+                        Date b_edate = formatter.parse(booking.getEndDate());
+                        if (sdate.after(b_edate) || edate.before(b_sdate)) {
+                            filteredProperties.add(property);
+                        }
+                    }
+                }
+            }
+        }
+        model.addAttribute("properties", filteredProperties);
+        return "property/accomodations";
     }
 
     // Landlord-specific properties

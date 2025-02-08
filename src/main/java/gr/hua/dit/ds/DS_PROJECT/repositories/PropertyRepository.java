@@ -9,4 +9,5 @@ import java.util.List;
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
     List<Property> findAllByStatus(Status status);
+    List<Property> findAllByCity(String City);
 }

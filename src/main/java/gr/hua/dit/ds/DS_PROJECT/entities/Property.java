@@ -22,6 +22,9 @@ public class Property {
     private String address;
 
     @Column
+    private String city;
+
+    @Column
     private float price;
 
     @Column
@@ -109,10 +112,15 @@ public class Property {
         this.createdAt = createdAt;
     }
 
-    public Property(String title, String description, String address, float price) {
+    public String getCity() { return city; }
+
+    public void setCity(String city) { this.city = city; }
+
+    public Property(String title, String description, String address, String city, float price) {
         this.title = title;
         this.description = description;
         this.address = address;
+        this.city = city;
         this.price = price;
     }
 

@@ -102,6 +102,31 @@
         .btn:hover {
             background-color: #0056b3;
         }
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-bar input, .filter-bar select, .filter-bar button {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .filter-bar button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+            padding: 8px 15px;
+        }
+        .filter-bar button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -148,12 +173,29 @@
 <main>
     <h2>Available Accommodations</h2>
 
+    <form th:action="@{/properties/filtered}" method="get" class="filter-bar">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" th:value="${startDate}">
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" th:value="${endDate}">
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" th:value="${location}">
+
+        <label for="price">Max Price (€):</label>
+        <input type="number" id="price" name="price" placeholder="Enter max price" th:value="${maxPrice}">
+
+        <button type="submit">Filter</button>
+    </form>
+
     <div class="accommodation-list">
         <!-- Loop through accommodations dynamically -->
         <div class="accommodation-card" th:each="property : ${properties}">
             <h3 th:text="${property.title}">Property Title</h3>
             <p th:text="${property.description}">Property Description</p>
             <p th:text="'Address: ' + ${property.address}">Property Address</p>
+            <p th:text="'City: '+ ${property.city}">Property City</p>
             <p class="price" th:text="'€' + ${property.price} + ' / night'">€100 / night</p>
             <a th:href="@{'/booking/'+${property.id}+'/new'}" class="btn">Book Now</a>
         </div>
