@@ -50,7 +50,8 @@
 </nav>
 
 <main>
-  <h2>My Properties</h2>
+  <h2 th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">My Properties</h2>
+  <h2 th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Approved Properties</h2>
   <table class="properties-table">
     <thead>
     <tr>

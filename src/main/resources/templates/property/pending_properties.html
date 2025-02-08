@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - Pending Properties</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/}" class="">Home</a></li>
+        <li><a th:href="@{/properties}">View Accommodations</a></li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/pending_properties}" class="active">Pending Properties</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/users}">Users</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/pending_users}">Pending Users</a>
+        </li>
+        <li><a th:href="@{/login?logout}">Sign Out</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>Pending Properties</h2>
+
+    <div class="table-container" th:if="${not #lists.isEmpty(properties)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="property : ${properties}">
+                <td th:text="${property.title}"></td>
+                <td th:text="${property.user.username}"></td>
+                <td th:text="${property.address}"></td>
+                <td th:text="'€' + ${property.price}"></td>
+
+                <td>
+                    <form th:action="@{'/properties/pending_property/' + ${property.id}}" method="post">
+                        <select name="status" class="dropdown">
+                            <option value="APPROVED">Approve</option>
+                            <option value="REJECTED">Reject</option>
+                        </select>
+                        <button type="submit" class="btn">Update</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${#lists.isEmpty(properties)}">
+        <p>No pending properties found.</p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

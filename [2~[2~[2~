@@ -1,0 +1,77 @@
+[33mcommit 4183139c60369929e0f19a6d04469ef094a2b990[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mpendingHTMLS[m[33m, [m[1;31morigin/pendingHTMLS[m[33m)[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 20:46:23 2025 +0200
+
+    code cleaning
+
+[33mcommit 87c6f1331e5f4d48d7123707ee1d3e4dbed34d02[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 18:33:25 2025 +0200
+
+    pending bookings first rendition
+
+[33mcommit 7bdbfd1040d8cb034a48f062d5ccf1db1f1b0b70[m
+Merge: 1f1fc80 89be3b2
+Author: Petros Vougioukas <61422470+PetrosV00@users.noreply.github.com>
+Date:   Sat Feb 8 15:31:22 2025 +0200
+
+    Merge pull request #2 from PetrosV00/oldTitle
+    
+    reset title
+
+[33mcommit 89be3b27e87e65b1a709c366ef2c83a51f0aa849[m[33m ([m[1;31morigin/oldTitle[m[33m)[m
+Author: petros <petrosvougiou00@gmail.com>
+Date:   Sat Feb 8 15:29:43 2025 +0200
+
+    reset title
+
+[33mcommit 1f1fc805704ba8a553b77ab50c6b7fb7233082a1[m
+Merge: ba551f8 b857c9a
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 15:22:37 2025 +0200
+
+    Merge pull request #1 from PetrosV00/newTitle
+    
+    test
+
+[33mcommit b857c9a624ff60c1a8b52922bbd863fa795e3929[m[33m ([m[1;31morigin/newTitle[m[33m)[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 15:16:26 2025 +0200
+
+    test
+
+[33mcommit ba551f8d46fb9a065c2bd80125ff7ee1301c2e1c[m
+Author: petros <petrosvougiou00@gmail.com>
+Date:   Sat Feb 8 14:32:17 2025 +0200
+
+    Adding filters and filtered controller method
+
+[33mcommit 83e115237ddc40176587988c91c340b21a825106[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 14:34:33 2025 +0200
+
+    layout
+
+[33mcommit 3462cfeefaf89802396395076f52dc481274e278[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Sat Feb 8 00:15:00 2025 +0200
+
+    updated layout
+
+[33mcommit 9cbaeb56267ec598fdc0594d70be57e36de0c093[m[33m ([m[1;32mmain[m[33m)[m
+Author: petros <petrosvougiou00@gmail.com>
+Date:   Fri Feb 7 11:37:33 2025 +0200
+
+    Fixing Booking creation mapping
+
+[33mcommit 6b64f0d7113c30865e1b2ade930db6b8cbb4e54c[m
+Author: petros <petrosvougiou00@gmail.com>
+Date:   Thu Feb 6 22:55:31 2025 +0200
+
+    Updating Landlord and Admin menu
+
+[33mcommit a6ece3fa2485016929467c3541aaf974fb2c608d[m
+Author: JaStamou <iasonas.stamou@gmail.com>
+Date:   Tue Jan 28 13:59:17 2025 +0200
+
+    fronted update
