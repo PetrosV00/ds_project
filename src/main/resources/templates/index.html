@@ -39,6 +39,8 @@
             <a th:href="@{/users}">Users</a>
         </li>
         <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <a th:href="@{/properties/pending_properties}">Pending Properties</a>
+        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
             <a th:href="@{/pending_users}">Pending Users</a>
         </li>
 
