@@ -66,4 +66,6 @@ public class PropertyService {
         propertyRepository.delete(property);
     }
 
+
+
 }
