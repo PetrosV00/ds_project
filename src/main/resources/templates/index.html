@@ -34,7 +34,7 @@
         <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
             <a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a>
 
-        <!-- Admin-specific options -->
+            <!-- Admin-specific options -->
         <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
             <a th:href="@{/users}">Users</a>
         </li>
@@ -49,19 +49,8 @@
     </ul>
 </nav>
 
-
-
 <main>
-    <!-- Welcome Message -->
     <h2 class="welcome-message" th:text="'Welcome, ' + ${firstName} + '!'">Welcome, User!</h2>
-
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <form th:action="@{/properties/search}" method="get">
-            <input type="text" name="query" placeholder="Search for accommodations">
-            <button type="submit">Search</button>
-        </form>
-    </div>
 </main>
 
 <footer>
