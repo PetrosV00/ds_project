@@ -70,9 +70,11 @@
       <td th:text="${property.address}">Sample Address</td>
       <td th:text="${property.price}">123.45</td>
       <td>
-        <a th:href="@{/properties/edit/{id}(id=${property.id})}" class="btn">Edit</a>
-        <a th:href="@{/properties/delete/{id}(id=${property.id})}" class="btn">Delete</a>
+        <a th:href="@{'/properties/edit/' + ${property.id}}" class="btn">Edit</a>
+        <a th:href="@{/properties/delete/{id}(id=${property.id})}" class="btn"
+           onclick="return confirm('Are you sure you want to delete this property?');">Delete</a>
       </td>
+
     </tr>
     </tbody>
   </table>

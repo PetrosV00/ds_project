@@ -40,7 +40,7 @@ public class BookingController {
         model.addAttribute("bookings", user.getBookings());
         return "booking/bookings";
     }
-
+    @Secured({"ROLE_TENANT"})
     @GetMapping("/{id}/new")
     public String addBooking(@PathVariable int id, Model model ) {
         Booking newBooking = new Booking();

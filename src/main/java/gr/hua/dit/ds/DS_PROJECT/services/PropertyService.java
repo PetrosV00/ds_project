@@ -58,5 +58,12 @@ public class PropertyService {
     public List<Property> getPropertiesByCity(String city) {
         return propertyRepository.findAllByCity(city);
     }
+    @Transactional
+    public void deleteProperty(int id) {
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Property not found with ID: " + id));
+
+        propertyRepository.delete(property);
+    }
 
 }

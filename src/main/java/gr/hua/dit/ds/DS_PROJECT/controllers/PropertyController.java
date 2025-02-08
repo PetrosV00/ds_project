@@ -122,5 +122,36 @@ public class PropertyController {
         model.addAttribute("properties", propertyService.getApprovedProperties());
         return "property/myProperties";
     }
+    @Secured("ROLE_LANDLORD")
+    @GetMapping("/edit/{id}")
+    public String editProperty(@PathVariable int id, Model model) {
+        Property property = propertyService.getProperty(id);
+        model.addAttribute("property", property);
+        return "property/editProperty";
+    }
+
+    @Secured("ROLE_LANDLORD")
+    @PostMapping("/update/{id}")
+    public String updateProperty(@PathVariable int id, @ModelAttribute("property") Property updatedProperty, Model model) {
+        Property property = propertyService.getProperty(id);
+        property.setTitle(updatedProperty.getTitle());
+        property.setDescription(updatedProperty.getDescription());
+        property.setAddress(updatedProperty.getAddress());
+        property.setPrice(updatedProperty.getPrice());
+        property.setCity(updatedProperty.getCity());
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByEmail(email);
+        propertyService.save(property);
+        model.addAttribute("properties", user.getProperties());
+        return "/property/myProperties";
+    }
+
+    @Secured("ROLE_LANDLORD")
+    @GetMapping("/delete/{id}")
+    public String deleteProperty(@PathVariable int id) {
+        propertyService.deleteProperty(id);
+        return "redirect:/properties/my_properties";
+    }
+
 }
 
