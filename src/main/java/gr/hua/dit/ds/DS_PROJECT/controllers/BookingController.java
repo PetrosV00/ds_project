@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Secured("APPROVED")
 @Controller
 @RequestMapping("/booking")
@@ -54,10 +56,16 @@ public class BookingController {
         booking.setStatus(Status.PENDING);
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(email);
+
+        // Assign property and tenant to the booking
         bookingService.assignPropertyAndTenantToBooking(id, user.getId(), booking);
-        model.addAttribute("bookings", booking);
+
+        // Pass the booking wrapped in a list
+        model.addAttribute("bookings", List.of(booking));
+
         return "booking/bookingConfirmation";
     }
+
 
     @GetMapping("/{booking_id}/cancel")
     public String cancelBooking(@PathVariable int booking_id, Model model) {
