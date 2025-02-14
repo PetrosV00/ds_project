@@ -95,6 +95,7 @@ nav ul li a:hover {
 main {
     padding: 20px;
     text-align: center;
+    margin: 0 auto;
 }
 
 .welcome-message {
@@ -144,6 +145,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .table th, .table td {
@@ -295,6 +297,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
 }
     /*form {*/
     /*    background-color: #ffffff;*/
