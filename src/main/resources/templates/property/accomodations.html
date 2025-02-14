@@ -6,11 +6,111 @@
     <title>SKYBNB - View Accommodations</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        main {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #007bff;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+        nav {
+            background-color: #0056b3;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav ul li a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .main {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            flex-direction: column;
         }
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .accommodation-list {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .accommodation-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .accommodation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .accommodation-card h3 {
+            color: #007bff;
+            font-size: 20px;
+            margin: 0 0 10px;
+        }
+        .accommodation-card p {
+            margin: 0 0 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .accommodation-card .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .accommodation-list-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -53,7 +153,7 @@
     </ul>
 </nav>
 
-<main>
+<main class="main">
     <h2>Available Accommodations</h2>
 
     <form th:action="@{/properties/filtered}" method="get" class="filter-bar">
@@ -72,15 +172,17 @@
         <button type="submit">Filter</button>
     </form>
 
-    <div class="accommodation-list">
-        <!-- Loop through accommodations dynamically -->
-        <div class="accommodation-card" th:each="property : ${properties}">
-            <h3 th:text="${property.title}">Property Title</h3>
-            <p th:text="${property.description}">Property Description</p>
-            <p th:text="'Address: ' + ${property.address}">Property Address</p>
-            <p th:text="'City: '+ ${property.city}">Property City</p>
-            <p class="price" th:text="'€' + ${property.price} + ' / night'">€100 / night</p>
-            <a th:href="@{'/booking/'+${property.id}+'/new'}" class="btn" , th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">Book Now</a>
+    <div class="accommodation-list-wrapper">
+        <div class="accommodation-list">
+            <!-- Loop through accommodations dynamically -->
+            <div class="accommodation-card" th:each="property : ${properties}">
+                <h3 th:text="${property.title}">Property Title</h3>
+                <p th:text="${property.description}">Property Description</p>
+                <p th:text="'Address: ' + ${property.address}">Property Address</p>
+                <p th:text="'City: '+ ${property.city}">Property City</p>
+                <p class="price" th:text="'€' + ${property.price} + ' / night'">€100 / night</p>
+                <a th:href="@{'/booking/'+${property.id}+'/new'}" class="btn" , th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">Book Now</a>
+            </div>
         </div>
     </div>
 </main>
