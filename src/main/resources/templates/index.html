@@ -1,60 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKYBNB - HOME</title>
     <link rel="stylesheet" href="/css/style.css">
-
 </head>
 <body>
-<header>
-    <h1>SKYBNB</h1>
-    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
-</header>
 
-<nav>
-    <ul>
-        <!-- Common options for all users -->
-        <li><a th:href="@{/}" class="active">Home</a></li>
-        <li><a th:href="@{/properties}">View Accommodations</a></li>
-
-        <!-- Tenant-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/booking/view}">My Bookings</a>
-        </li>
-        <!-- Landlord-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/my_properties}">My Properties</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/new}">Create a Listing</a>
-        </li>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a>
-
-            <!-- Admin-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/users}">Users</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/properties/pending_properties}">Pending Properties</a>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/pending_users}">Pending Users</a>
-        </li>
-
-        <!-- Sign Out option for all users -->
-        <li><a th:href="@{/login?logout}">Sign Out</a></li>
-    </ul>
-</nav>
-
-<main>
+<section layout:fragment="content">
     <h2 class="welcome-message" th:text="'Welcome, ' + ${firstName} + '!'">Welcome, User!</h2>
-</main>
+</section>
 
-<footer>
-    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
-</footer>
 </body>
 </html>

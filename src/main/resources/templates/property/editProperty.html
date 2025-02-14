@@ -1,53 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKYBNB - Edit Listing</title>
     <link rel="stylesheet" href="/css/style.css">
 
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SKYBNB - EDIT LISTING</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
 <body>
-<header>
-    <h1>SKYBNB</h1>
-    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
-</header>
 
-<nav>
-    <ul>
-        <!-- Common options for all users -->
-        <li><a th:href="@{/}">Home</a></li>
-        <li><a th:href="@{/properties}">View Accommodations</a></li>
-
-        <!-- Tenant-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
-            <a th:href="@{/booking/view}">My Bookings</a>
-        </li>
-        <!-- Landlord-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/my_properties}" class="active">My Properties</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/properties/new}">Create a Listing</a>
-        </li>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_LANDLORD'')')}">
-            <a th:href="@{/booking/pending_booking_requests}">Pending Bookings</a>
-
-            <!-- Admin-specific options -->
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/users}">Users</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/pending_users}">Pending Users</a>
-        </li>
-
-        <!-- Sign Out option for all users -->
-        <li><a th:href="@{/login?logout}">Sign Out</a></li>
-    </ul>
-</nav>
-
-<main>
+<section class="property-form-main" layout:fragment="content">
     <h2>Edit Property Listing</h2>
     <form class="property-form" th:action="@{/properties/update/{id}(id=${property.id})}" method="post">
         <input type="hidden" name="id" th:value="${property.id}">
@@ -80,10 +47,8 @@
 
         <button type="submit" class="btn">Update Listing</button>
     </form>
-</main>
+</section>
 
-<footer>
-    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
-</footer>
+
 </body>
 </html>

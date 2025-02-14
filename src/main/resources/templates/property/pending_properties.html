@@ -1,36 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYBNB - Pending Properties</title>
+    <title>SKYBNB - PENDING PROPERTIES</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<header>
-    <h1>SKYBNB</h1>
-    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a th:href="@{/}" class="">Home</a></li>
-        <li><a th:href="@{/properties}">View Accommodations</a></li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/pending_properties}" class="active">Pending Properties</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/users}">Users</a>
-        </li>
-        <li th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-            <a th:href="@{/pending_users}">Pending Users</a>
-        </li>
-        <li><a th:href="@{/login?logout}">Sign Out</a></li>
-    </ul>
-</nav>
-
-<main>
+<section class="main-section" layout:fragment="content">
     <h2>Pending Properties</h2>
 
     <div class="table-container" th:if="${not #lists.isEmpty(properties)}">
@@ -68,11 +47,7 @@
     <div th:if="${#lists.isEmpty(properties)}">
         <p>No pending properties found.</p>
     </div>
-</main>
-
-<footer>
-    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
-</footer>
+</section>
 
 </body>
 </html>
