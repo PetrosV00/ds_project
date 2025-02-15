@@ -13,6 +13,8 @@
 
 <section layout:fragment="content">
 
+  <h2>PENDING USERS</h2>
+
   <div style="margin-top: 20px;" th:if="${ not#lists.isEmpty(users)}">
     <table class="table">
       <thead>
@@ -44,7 +46,7 @@
     </table>
   </div>
   <div th:if="${ #lists.isEmpty(users)}">
-    <h2>NO PENDING USERS FOUND</h2>
+    <div style="text-align: center ;" >NO PENDING USERS FOUND</div>
   </div>
   <div style="text-align: center; margin-top: 20px;">
     <a href="/register" class="btn" role="button">Create new User</a>

@@ -23,7 +23,7 @@ footer {
     text-align: center;
     padding: 5px;
     background: #f4f4f4;
-    position: fixed;
+    position: bottom;
     bottom: 0;
     width: 100%;
 }
