@@ -2,6 +2,7 @@ package gr.hua.dit.ds.DS_PROJECT.services;
 
 import gr.hua.dit.ds.DS_PROJECT.entities.Booking;
 import gr.hua.dit.ds.DS_PROJECT.entities.Property;
+import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.repositories.BookingRepository;
 import gr.hua.dit.ds.DS_PROJECT.repositories.PropertyRepository;
@@ -61,7 +62,7 @@ public class BookingService {
         List<Property> properties = user.getProperties();
         List<Booking> bookings = new ArrayList<>();
         for (Property property : properties) {
-            List<Booking> temp = bookingRepository.getAllBookingsByProperty(property);
+            List<Booking> temp = bookingRepository.getAllBookingsByPropertyAndStatus(property, Status.PENDING);
             for (Booking booking : temp) {
                 bookings.add(booking);
             }

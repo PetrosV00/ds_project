@@ -72,7 +72,13 @@
     <ul>
         <li><a th:href="@{/}">Home</a></li>
         <li><a th:href="@{/contact}">Contact</a></li>
-        <li><a th:href="@{/login}">Login</a></li>
+        <li>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" style="background:none; border:none; color:white; text-decoration:none; cursor:pointer; font-size:inherit; font-family:inherit; padding:0;">
+                    Sign out
+                </button>
+            </form>
+        </li>
     </ul>
 </nav>
 

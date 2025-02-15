@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +44,20 @@
             <a th:href="@{/pending_users}">Pending Users</a>
         </li>
 
-        <li><a th:href="@{/login?logout}">Sign Out</a></li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" style="background:none; border:none; color:white; text-decoration:none; cursor:pointer; font-size:inherit; font-family:inherit; padding:0;"
+                        onmouseover="this.style.textDecoration= 'underline'"
+                        onmouseout="this.style.textDecoration= 'none'">
+                    Sign out
+                </button>
+            </form>
+        </li>
+
+        <li><a sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a></li>
+
+        <li><a sec:authorize="!isAuthenticated()" th:href="@{/register}">Sign up</a></li>
+
     </ul>
 </nav>
 

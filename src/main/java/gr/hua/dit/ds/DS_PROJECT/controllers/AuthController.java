@@ -36,8 +36,6 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "auth/login";
-    }
+    public String login() { return "auth/login"; }
 
 }
