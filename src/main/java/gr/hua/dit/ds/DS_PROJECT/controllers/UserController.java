@@ -7,10 +7,11 @@ import gr.hua.dit.ds.DS_PROJECT.repositories.RoleRepository;
 import gr.hua.dit.ds.DS_PROJECT.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -31,11 +32,15 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user, Model model) {
+    public String saveUser(@ModelAttribute("user") User user, Model model, @RequestParam String role) {
         user.setStatus(Status.PENDING);
+        Role role1 = roleRepository.findByName(role).get();
+        Set<Role> roles = new HashSet<>();
+        roles.add(role1);
+        user.setRoles(roles);
         userService.saveUser(user);
         model.addAttribute("users", userService.getUsers());
-        return "index";
+        return "/auth/pending_register";
     }
 
     @GetMapping("/users")

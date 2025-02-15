@@ -22,13 +22,16 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.getUserByEmail(email);
-
-        if (user.getStatus().equals(Status.PENDING)) {
-            return "auth/pending_register";
+        System.out.println("email: " + email);
+        if (!email.equals("anonymousUser")) {
+            User user = userService.getUserByEmail(email);
+            model.addAttribute("user", user);
+            if (user.getStatus().equals(Status.PENDING)) {
+                return "auth/pending_register";
+            } else {
+                return "index";
+            }
         } else {
-            // Pass the user's first name to the model
-            model.addAttribute("firstName", user.getFirstName());
             return "index";
         }
     }

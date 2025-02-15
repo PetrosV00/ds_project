@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{page_layout/layout}">
+      layout:decorate="~{page_layout/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,9 @@
 </head>
 <body>
 
-<section layout:fragment="content">
-    <h2 class="welcome-message" th:text="'Welcome, ' + ${firstName} + '!'">Welcome, User!</h2>
+<section layout:fragment="content" th:object="${user}">
+    <h2 sec:authorize="isAuthenticated()" class="welcome-message" th:text="'Welcome, ' + ${user.firstName} + '!'">Welcome, User!</h2>
+    <h2 sec:authorize="!isAuthenticated()" class="welcome-message">Welcome to SKYBNB!</h2>
 </section>
 
 </body>

@@ -76,7 +76,7 @@
 <div class="register-container">
     <h1>SKYBNB</h1>
     <p>Create your account to get started!</p>
-    <form th:action="@{/saveUser}" method="post">
+    <form th:action="@{/saveUser}" method="post" th:object="${user}">
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>

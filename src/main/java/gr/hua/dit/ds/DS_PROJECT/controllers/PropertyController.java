@@ -248,8 +248,14 @@ public class PropertyController {
 
     @Secured("ROLE_LANDLORD")
     @GetMapping("/delete/{id}")
-    public String deleteProperty(@PathVariable int id) {
-        propertyService.deleteProperty(id);
+    public String deleteProperty(@PathVariable int id, Model model) {
+        Property property = propertyService.getProperty(id);
+        if(property.getBookings().isEmpty()) {
+            propertyService.deleteProperty(id);
+            model.addAttribute("Message", "Your Property has been deleted successfully.");
+        } else {
+            model.addAttribute("Message", "Cannot delete property because there are still upcoming booking registered.");
+        }
         return "redirect:/properties/my_properties";
     }
 
