@@ -9,9 +9,9 @@
     <title>Bookings</title>
 </head>
 <body>
-<div layout:fragment="main-content">
+<section layout:fragment="content">
     <div>
-        <h1>Your booking has been deleted</h1>
+        <h2>Your booking has been cancelled!</h2>
     </div>
     <div th:if="${ not#lists.isEmpty(bookings)}">
         <table class="table">
@@ -36,6 +36,6 @@
     <div th:if="${ #lists.isEmpty(bookings)}">
         No bookings found!
     </div>
-</div>
+</section>
 </body>
 </html>

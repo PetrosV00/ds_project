@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.DS_PROJECT.services;
 
+import gr.hua.dit.ds.DS_PROJECT.entities.Property;
 import gr.hua.dit.ds.DS_PROJECT.entities.Role;
 import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
@@ -99,6 +100,11 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getUsersByStatus(Status status) { return userRepository.findAllByStatus(status); }
+
+    @Transactional
+    public List<User> getPendingUsers() {
+        return userRepository.findAllByStatus(Status.PENDING);
+    }
 
     @Transactional
     public void updateOrInsertRole(Role role) {

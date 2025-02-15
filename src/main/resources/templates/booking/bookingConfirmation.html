@@ -7,34 +7,30 @@
   <title>SKYBNB - HOME</title>
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    .table {
+    .confirmation-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-    .table th, .table td {
+    .confirmation-table th, .confirmation-table td {
       padding: 10px;
       border: 1px solid #ddd;
     }
-    .table th {
+    .confirmation-table th {
       background-color: #007bff;
       color: white;
     }
-    .table tr:nth-child(even) {
+    .confirmation-table tr:nth-child(even) {
       background-color: #f2f2f2;
     }
   </style>
 </head>
 <body>
-<header>
-  <h1>SKYBNB</h1>
-  <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
-</header>
 
 <section class="section-bookingConfirmation" layout:fragment="content">
     <h2>Your booking request has been submitted!</h2>
   <div th:if="${ not#lists.isEmpty(bookings)}">
-    <table class="table">
+    <table class="confirmation-table">
       <thead>
       <tr>
         <th>Property</th>
@@ -50,11 +46,6 @@
         <td th:text="${booking.startDate}">2025-02-12</td>
         <td th:text="${booking.endDate}">2025-02-26</td>
       </tr>
-
-      </tr>
-
-      </tr>
-
       </tbody>
     </table>
   </div>

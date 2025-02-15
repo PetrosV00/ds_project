@@ -336,5 +336,21 @@ main {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+.confirmation-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.confirmation-table th, .confirmation-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.confirmation-table th {
+    background-color: #007bff;
+    color: white;
+}
+.confirmation-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 
