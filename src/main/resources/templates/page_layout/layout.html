@@ -11,12 +11,12 @@
 
 <header th:fragment="header">
     <h1>SKYBNB</h1>
-    <p>testACCOMMODATION MANAGEMENT PLATFORM</p>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
 </header>
 
 <nav th:fragment="navigation">
     <ul>
-        <li><a th:href="@{/}">testHome</a></li>
+        <li><a th:href="@{/}">Home</a></li>
         <li><a th:href="@{/properties}">View Accommodations</a></li>
 
         <li th:if="${#authorization.expression('hasRole(''ROLE_TENANT'')')}">
@@ -50,7 +50,7 @@
 <main layout:fragment="content"></main>
 
 <footer th:fragment="footer">
-    <p>&copy; test2024 SKYBNB. All rights reserved.</p>
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
 </footer>
 
 </body>

@@ -192,6 +192,7 @@ public class PropertyController {
         return "property/myProperties"; // Redirect back to "My Properties"
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/pending_properties")
     public String showPendingProperties(Model model) {
         model.addAttribute("properties", propertyService.getPendingProperties());

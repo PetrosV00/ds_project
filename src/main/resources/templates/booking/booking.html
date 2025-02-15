@@ -1,73 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYBNB - Make a Booking</title>
+    <title>SKYBNB - MAKE A BOOKING</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #007bff;
-            padding: 10px 0;
-            color: #fff;
-            text-align: center;
-        }
-        nav {
-            background-color: #0056b3;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-        }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        nav ul li a.active {
-            font-weight: bold;
-            text-decoration: underline;
-        }
-        nav ul li a:hover {
-            text-decoration: underline;
-        }
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: 40px auto;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 24px;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
         form {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-        label {
-            font-size: 16px;
-            color: #333;
-        }
+
         input, select, textarea {
             padding: 10px;
             font-size: 14px;
@@ -75,18 +21,6 @@
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
@@ -96,18 +30,8 @@
     <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
 </header>
 
-<nav>
-    <ul>
-        <li><a th:href="@{/}" class="">Home</a></li>
-        <li><a th:href="@{/properties}" class="">View Accommodations</a></li>
-        <li><a th:href="@{/booking/view}" class="">My Bookings</a></li>
-        <li><a th:href="@{/contact}" class="">Contact</a></li>
-        <li><a th:href="@{/login?logout}" class="">Sign Out</a></li>
-    </ul>
-</nav>
-
-<main>
-    <h1>Make a Booking</h1>
+<section class="main-section" layout:fragment="content">
+    <h2>Make a Booking</h2>
     <form class="booking-form" th:action="@{'/booking/'+${id}+'/new'}" method="post" th:object="${booking}">
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
@@ -115,15 +39,9 @@
         <label for="endDate">End Date:</label>
         <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
 
-        <!--<label for="guestCount">Number of Guests:</label>
-        <input type="number" id="guestCount" name="guestCount" min="1" th:field="*{guestCount}" required>-->
-
-        <!--<label for="notes">Special Requests:</label>
-        <textarea id="notes" name="notes" rows="4" th:field="*{notes}" placeholder="Add any special requests or notes..."></textarea>-->
-
-        <button type="submit">Submit Booking</button>
+        <button class="btn" type="submit">Submit Booking</button>
     </form>
-</main>
+</section>
 
 <footer>
     <p>&copy; 2024 SKYBNB. All rights reserved.</p>
