@@ -27,9 +27,6 @@ public class Property {
     @Column
     private float price;
 
-    @Column
-    private Date createdAt;
-
     @OneToMany(mappedBy = "property", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Booking> bookings;
 
@@ -102,14 +99,6 @@ public class Property {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public String getCity() { return city; }

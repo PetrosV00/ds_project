@@ -44,7 +44,6 @@ public class PropertyController {
         List<Property> filteredProperties = new ArrayList<>();
         List<Property> AvailableProperties = propertyService.getProperties();
 
-
         for (Property property : AvailableProperties) {
             if (property.getCity().equals(location) && price.isEmpty() ) {
                 if (startDate.isEmpty() || endDate.isEmpty()) {
@@ -156,8 +155,6 @@ public class PropertyController {
                 }
             }
         }
-
-
         model.addAttribute("properties", filteredProperties);
         return "property/accomodations";
     }
@@ -218,7 +215,7 @@ public class PropertyController {
         Property updatedProperty = propertyService.getProperty(id);
         updatedProperty.setStatus(property.getStatus());
         propertyService.save(updatedProperty);
-        model.addAttribute("properties", propertyService.getApprovedProperties());
+        model.addAttribute("properties", propertyService.getPendingProperties());
         return "property/pending_properties";
     }
 
