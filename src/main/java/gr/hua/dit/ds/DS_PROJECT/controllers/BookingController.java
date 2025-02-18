@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.DS_PROJECT.controllers;
 
 import gr.hua.dit.ds.DS_PROJECT.entities.Booking;
+import gr.hua.dit.ds.DS_PROJECT.entities.Property;
 import gr.hua.dit.ds.DS_PROJECT.entities.Status;
 import gr.hua.dit.ds.DS_PROJECT.entities.User;
 import gr.hua.dit.ds.DS_PROJECT.services.BookingService;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Secured("APPROVED")
@@ -46,7 +50,18 @@ public class BookingController {
     }
 
     @PostMapping("/{id}/new")
-    public String saveBooking(@ModelAttribute("booking") Booking booking, @PathVariable int id, Model model) {
+    public String saveBooking(@ModelAttribute("booking") Booking booking, @PathVariable int id, Model model) throws ParseException {
+        Property property = propertyService.getProperty(id);
+        for (Booking booking1 : property.getBookings()) {
+            Date sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getStartDate());
+            Date edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking.getEndDate());
+            Date b1_sdate = new SimpleDateFormat("yyyy-MM-dd").parse(booking1.getStartDate());
+            Date b1_edate = new SimpleDateFormat("yyyy-MM-dd").parse(booking1.getEndDate());
+            if(!(sdate.after(b1_edate) || edate.before(b1_sdate))) {
+                model.addAttribute("booking", new Booking());
+                return "booking/new_booking";
+            }
+        }
         booking.setId(0);
         booking.setStatus(Status.PENDING);
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

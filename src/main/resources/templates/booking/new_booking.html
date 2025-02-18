@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYBNB - MAKE A BOOKING</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>SKYBNB</h1>
+    <p>ACCOMMODATION MANAGEMENT PLATFORM</p>
+</header>
+
+<section class="main-section" layout:fragment="content">
+    <h2>The Accommodation is booked in these dates. Please try again.</h2>
+    <form class="booking-form" th:action="@{'/booking/'+${id}+'/new'}" method="post" th:object="${booking}">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" th:field="*{startDate}" required>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" th:field="*{endDate}" required>
+
+        <button class="btn" type="submit">Submit Booking</button>
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2024 SKYBNB. All rights reserved.</p>
+</footer>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let startDateInput = document.getElementById("startDate");
+        let endDateInput = document.getElementById("endDate");
+
+        let today = new Date().toISOString().split("T")[0];
+        startDateInput.setAttribute("min", today);
+        endDateInput.setAttribute("min", today);
+
+        startDateInput.addEventListener("change", function () {
+            let startDate = startDateInput.value;
+            endDateInput.setAttribute("min", startDate);
+        });
+
+        endDateInput.addEventListener("change", function () {
+            if (endDateInput.value < startDateInput.value) {
+                alert("End date cannot be before start date!");
+                endDateInput.value = startDateInput.value;
+            }
+        });
+    });
+</script>
