@@ -48,3 +48,26 @@
 </footer>
 </body>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let startDateInput = document.getElementById("startDate");
+        let endDateInput = document.getElementById("endDate");
+
+        let today = new Date().toISOString().split("T")[0];
+        startDateInput.setAttribute("min", today);
+        endDateInput.setAttribute("min", today);
+
+        startDateInput.addEventListener("change", function () {
+            let startDate = startDateInput.value;
+            endDateInput.setAttribute("min", startDate);
+        });
+
+        endDateInput.addEventListener("change", function () {
+            if (endDateInput.value < startDateInput.value) {
+                alert("End date cannot be before start date!");
+                endDateInput.value = startDateInput.value;
+            }
+        });
+    });
+</script>

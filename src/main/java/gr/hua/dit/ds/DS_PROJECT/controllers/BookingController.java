@@ -29,11 +29,6 @@ public class BookingController {
         this.propertyService = propertyService;
         this.userService = userService;
     }
-    @GetMapping("")
-    public String showProperties(Model model) {
-        model.addAttribute("properties", propertyService.getProperties());
-        return "myProperties";
-    }
 
     @GetMapping("/view")
     public String ShowMyBookings(Model model) {
@@ -57,10 +52,8 @@ public class BookingController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByEmail(email);
 
-        // Assign property and tenant to the booking
         bookingService.assignPropertyAndTenantToBooking(id, user.getId(), booking);
 
-        // Pass the booking wrapped in a list
         model.addAttribute("bookings", List.of(booking));
 
         return "booking/bookingConfirmation";

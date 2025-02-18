@@ -33,17 +33,15 @@ public class PropertyController {
         this.userService = userService;
     }
 
-    // All available accommodations for all users
     @GetMapping("")
     public String showProperties(Model model) {
-        model.addAttribute("properties", propertyService.getApprovedProperties());
-        return "property/accomodations"; // Separate HTML template
+        model.addAttribute("properties");
+        return "property/accomodations";
     }
     @GetMapping("/filtered")
     public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, Model model) throws ParseException {
         List<Property> filteredProperties = new ArrayList<>();
         List<Property> AvailableProperties = propertyService.getProperties();
-
 
         for (Property property : AvailableProperties) {
             if (property.getCity().equals(location) && price.isEmpty() ) {
@@ -156,8 +154,6 @@ public class PropertyController {
                 }
             }
         }
-
-
         model.addAttribute("properties", filteredProperties);
         return "property/accomodations";
     }
@@ -218,7 +214,7 @@ public class PropertyController {
         Property updatedProperty = propertyService.getProperty(id);
         updatedProperty.setStatus(property.getStatus());
         propertyService.save(updatedProperty);
-        model.addAttribute("properties", propertyService.getApprovedProperties());
+        model.addAttribute("properties", propertyService.getPendingProperties());
         return "property/pending_properties";
     }
 
