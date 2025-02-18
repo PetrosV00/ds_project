@@ -33,11 +33,10 @@ public class PropertyController {
         this.userService = userService;
     }
 
-    // All available accommodations for all users
     @GetMapping("")
     public String showProperties(Model model) {
-        model.addAttribute("properties", propertyService.getApprovedProperties());
-        return "property/accomodations"; // Separate HTML template
+        model.addAttribute("properties");
+        return "property/accomodations";
     }
     @GetMapping("/filtered")
     public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, Model model) throws ParseException {
