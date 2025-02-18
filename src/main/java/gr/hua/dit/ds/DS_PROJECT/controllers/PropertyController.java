@@ -41,7 +41,7 @@ public class PropertyController {
     @GetMapping("/filtered")
     public String showFilteredProperties( @RequestParam String location, @RequestParam String price,@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, Model model) throws ParseException {
         List<Property> filteredProperties = new ArrayList<>();
-        List<Property> AvailableProperties = propertyService.getProperties();
+        List<Property> AvailableProperties = propertyService.getApprovedProperties();
 
         for (Property property : AvailableProperties) {
             if (property.getCity().equals(location) && price.isEmpty() ) {
